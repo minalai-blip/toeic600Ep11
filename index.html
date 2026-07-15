@@ -128,69 +128,118 @@
             
             <div><span class="retry-link" onclick="initQuiz()">↺ 再練一次這組單字</span></div>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNkem-vuwWTDc5eEfhv4FlqpubNv7dsoY0uFQEcv4c5rCtyg/viewform?usp=header" class="cta-button" target="_blank">前往👉實戰驗收：📝多益模擬題型</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNkem-vuwWTDc5eEfhv4FlqpubNv7dsoY0uFQEcv4c5rCtyg/viewform?usp=header" class="cta-button" target="_blank">前往👉下一關:中階情境演練</a>
 
             <div class="footer-upsell">
-                💡 這套「直覺單字+實戰刷題」模式很有效吧!完整多益衝刺計畫已在蝦皮上架。<br>
-                <a href="https://shopee.tw/YOUR_LINK" class="shopee-link" target="_blank">點此前往蝦皮賣場看更多</a>
+                這套「單字直覺」練習模式很有效吧!完整多益衝刺計畫已上架。<br>
+                <a href="https://shopee.tw/YOUR_LINK" class="shopee-link" target="_blank">點此前往看更多</a>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// EP11 核心資料庫：完全移除首字母提示，改為純挖空
+// EP11 核心資料庫 (251 - 275 共 25 字，答案交叉設計且中文誘答完全使用同集單字)
 const rawData = [
-    { type: "單字辨析", word: "I’m <u><b>familiar</b></u> with the new office system.", show: "陌生的", ans: false, feedback: "familiar 是「熟悉的;親近的」。" },
-    { type: "句型搭配", word: "familiar", show: "I’m ______ with the new office system. / 填入：familiar", ans: true, feedback: "應填入 familiar。" },
-    { type: "單字辨析", word: "an <u><b>ideal</b></u> location", show: "理想的", ans: true, feedback: "ideal 是「理想的」。" },
-    { type: "句型搭配", word: "ideal", show: "an ______ location / 填入：initial", ans: false, feedback: "應填入 ideal。" },
-    { type: "單字辨析", word: "<u><b>maintain</b></u> office equipment", show: "維護;主張", ans: true, feedback: "maintain 是「維護;主張」。" },
-    { type: "句型搭配", word: "maintain", show: "______ office equipment / 填入：maintain", ans: true, feedback: "應填入 maintain。" },
-    { type: "單字辨析", word: "a <u><b>landscaping</b></u> company", show: "景觀設計、環境美化", ans: true, feedback: "landscaping 是「景觀設計、環境美化」。" },
-    { type: "句型搭配", word: "landscaping", show: "a ______ company / 填入：celebration", ans: false, feedback: "應填入 landscaping。" },
-    { type: "單字辨析", word: "<u><b>organize</b></u> a company event", show: "籌辦、組織", ans: true, feedback: "organize 是「主辦、組織」。" },
-    { type: "句型搭配", word: "organize", show: "______ a company event / 填入：organize", ans: true, feedback: "應填入 organize。" },
-    { type: "單字辨析", word: "a <u><b>significant</b></u> drop in costs", show: "微不足道的", ans: false, feedback: "significant 是「顯著的、大幅的、重要的」。" },
-    { type: "句型搭配", word: "significant", show: "a ______ drop in costs / 填入：significant", ans: true, feedback: "應填入 significant。" },
-    { type: "單字辨析", word: "a special <u><b>occasion</b></u>", show: "場合;時機;機會", ans: true, feedback: "occasion 是「場合;時機;機會」。" },
-    { type: "句型搭配", word: "occasion", show: "a special ______ / 填入：environment", ans: false, feedback: "應填入 occasion。" },
-    { type: "單字辨析", word: "meet safety <u><b>standards</b></u>", show: "標準", ans: true, feedback: "standard 是「標準」。" },
-    { type: "句型搭配", word: "standard", show: "meet safety ______ / 填入：standards", ans: true, feedback: "應填入 standards。" },
-    { type: "單字辨析", word: "educational <u><b>background</b></u>", show: "經歷、背景", ans: true, feedback: "background 是「經歷、背景」。" },
-    { type: "句型搭配", word: "background", show: "educational ______ / 填入：decade", ans: false, feedback: "應填入 background。" },
-    { type: "單字辨析", word: "a <u><b>guided</b></u> tour", show: "有導覽的", ans: true, feedback: "guided 是「有導覽(員)的」。" },
-    { type: "句型搭配", word: "guided", show: "a ______ tour / 填入：guided", ans: true, feedback: "應填入 guided。" },
-    { type: "單字辨析", word: "<u><b>advanced</b></u> computer skills", show: "初階的", ans: false, feedback: "advanced 是「先進的;高等的、進階的」。" },
-    { type: "句型搭配", word: "advanced", show: "______ computer skills / 填入：advanced", ans: true, feedback: "應填入 advanced。" },
-    { type: "單字辨析", word: "an <u><b>alternative</b></u> solution", show: "替代方案", ans: true, feedback: "alternative 是「替代的」。" },
-    { type: "句型搭配", word: "alternative", show: "an ______ solution / 填入：overall", ans: false, feedback: "應填入 alternative。" },
-    { type: "單字辨析", word: "feel <u><b>confident</b></u> about the result", show: "對結果有信心", ans: true, feedback: "confident 是「有自信的」。" },
-    { type: "句型搭配", word: "confident", show: "feel ______ about the result / 填入：confident", ans: true, feedback: "應填入 confident。" },
-    { type: "單字辨析", word: "over the past three <u><b>decades</b></u>", show: "三十年裡", ans: true, feedback: "decade 是「十年」。" },
-    { type: "句型搭配", word: "decade", show: "over the past three ______ / 填入：various", ans: false, feedback: "應填入 decades。" },
-    { type: "單字辨析", word: "the <u><b>initial</b></u> stage of the project", show: "專案的初始階段", ans: true, feedback: "initial 是「開始的，最初的」。" },
-    { type: "句型搭配", word: "initial", show: "the ______ stage of the project / 填入：initial", ans: true, feedback: "應填入 initial。" },
-    { type: "單字辨析", word: "The order will arrive in two <u><b>separate</b></u> shipments.", show: "合併的", ans: false, feedback: "separate 是「分開的、個別的」。" },
-    { type: "句型搭配", word: "separate", show: "The order will arrive in two ______ shipments. / 填入：separate", ans: true, feedback: "應填入 separate。" },
-    { type: "單字辨析", word: "the grand opening <u><b>celebration</b></u>", show: "開幕慶祝", ans: true, feedback: "celebration 是「慶祝」。" },
-    { type: "句型搭配", word: "celebration", show: "the grand opening ______ / 填入：occasion", ans: false, feedback: "應填入 celebration。" },
-    { type: "單字辨析", word: "express <u><b>concern</b></u>", show: "表示關切", ans: true, feedback: "concern 是「關心、關切」。" },
-    { type: "句型搭配", word: "concern", show: "express ______ / 填入：concern", ans: true, feedback: "應填入 concern。" },
-    { type: "單字辨析", word: "a friendly work <u><b>environment</b></u>", show: "工作環境", ans: true, feedback: "environment 是「環境」。" },
-    { type: "句型搭配", word: "environment", show: "a friendly work ______ / 填入：landscaping", ans: false, feedback: "應填入 environment。" },
-    { type: "單字辨析", word: "<u><b>operate</b></u> a machine safely", show: "安全操作機器", ans: true, feedback: "operate 是「操作;營運;運作」。" },
-    { type: "句型搭配", word: "operate", show: "______ a machine safely / 填入：operate", ans: true, feedback: "應填入 operate。" },
-    { type: "單字辨析", word: "<u><b>various</b></u> styles and patterns", show: "單一的", ans: false, feedback: "various 是「各式各樣的」。" },
-    { type: "句型搭配", word: "various", show: "______ styles and patterns / 填入：various", ans: true, feedback: "應填入 various。" },
-    { type: "單字辨析", word: "a <u><b>brief</b></u> meeting", show: "簡短的會議", ans: true, feedback: "brief 是「簡略的，簡短的」。" },
-    { type: "句型搭配", word: "brief", show: "a ______ meeting / 填入：brief", ans: true, feedback: "應填入 brief。" },
-    { type: "單字辨析", word: "<u><b>full-time</b></u> job opportunity", show: "全職工作機會", ans: true, feedback: "full-time 是「全職的」。" },
-    { type: "句型搭配", word: "full-time", show: "______ job opportunity / 填入：alternative", ans: false, feedback: "應填入 full-time。" },
-    { type: "單字辨析", word: "the <u><b>overall</b></u> budget", show: "整體的預算", ans: true, feedback: "overall 是「整體的」。" },
-    { type: "句型搭配", word: "overall", show: "the ______ budget / 填入：overall", ans: true, feedback: "應填入 overall。" },
-    { type: "單字辨析", word: "<u><b>achieve</b></u> a sales target", show: "放棄目標", ans: false, feedback: "achieve 是「達成」。" },
-    { type: "句型搭配", word: "achieve", show: "______ a sales target / 填入：achieve", ans: true, feedback: "應填入 achieve。" }
+    // 251. familiar (辨析: True / 句型: False)
+    { id: "familiar", type: "單字辨析", word: "I'm <u><b>familiar</b></u> with the new office system.", show: "熟悉的;親近的", ans: true, feedback: "familiar 是形容詞「熟悉的;親近的」。" },
+    { id: "familiar", type: "句型搭配", show: "I'm ______ with the new office system. / 填入：brief", ans: false, feedback: "應填入 familiar。" },
+
+    // 252. ideal (辨析: False / 句型: True)
+    { id: "ideal", type: "單字辨析", word: "an <u><b>ideal</b></u> location", show: "簡短的", ans: false, feedback: "ideal 是形容詞「理想的」。" },
+    { id: "ideal", type: "句型搭配", show: "an ______ location / 填入：ideal", ans: true, feedback: "應填入 ideal。" },
+
+    // 253. maintain (辨析: True / 句型: False)
+    { id: "maintain", type: "單字辨析", word: "<u><b>maintain</b></u> office equipment", show: "維護;主張", ans: true, feedback: "maintain 是動詞「維護;主張」。" },
+    { id: "maintain", type: "句型搭配", show: "______ office equipment / 填入：organize", ans: false, feedback: "應填入 maintain。" },
+
+    // 254. landscaping (辨析: False / 句型: True)
+    { id: "landscaping", type: "單字辨析", word: "a <u><b>landscaping</b></u> company", show: "十年", ans: false, feedback: "landscaping 是名詞「景觀設計、環境美化」。" },
+    { id: "landscaping", type: "句型搭配", show: "a ______ company / 填入：landscaping", ans: true, feedback: "應填入 landscaping。" },
+
+    // 255. organize (辨析: True / 句型: False)
+    { id: "organize", type: "單字辨析", word: "<u><b>organize</b></u> a company event", show: "主辦、組織", ans: true, feedback: "organize 是動詞「主辦、組織」。" },
+    { id: "organize", type: "句型搭配", show: "______ a company event / 填入：achieve", ans: false, feedback: "應填入 organize。" },
+
+    // 256. significant (辨析: False / 句型: True)
+    { id: "significant", type: "單字辨析", word: "a <u><b>significant</b></u> drop in costs", show: "有自信的", ans: false, feedback: "significant 是形容詞「顯著的、大幅的、重要的」。" },
+    { id: "significant", type: "句型搭配", show: "a ______ drop in costs / 填入：significant", ans: true, feedback: "應填入 significant。" },
+
+    // 257. occasion (辨析: True / 句型: False)
+    { id: "occasion", type: "單字辨析", word: "a special <u><b>occasion</b></u>", show: "場合;時機;機會", ans: true, feedback: "occasion 是名詞「場合;時機;機會」。" },
+    { id: "occasion", type: "句型搭配", show: "a special ______ / 填入：initial", ans: false, feedback: "應填入 occasion。" },
+
+    // 258. standard (辨析: False / 句型: True)
+    { id: "standard", type: "單字辨析", word: "meet safety <u><b>standards</b></u>", show: "環境", ans: false, feedback: "standard 是名詞「標準」。" },
+    { id: "standard", type: "句型搭配", show: "meet safety ______ / 填入：standards", ans: true, feedback: "應填入 standards。" },
+
+    // 259. background (辨析: True / 句型: False)
+    { id: "background", type: "單字辨析", word: "educational <u><b>background</b></u>", show: "經歷、背景", ans: true, feedback: "background 是名詞「經歷、背景」。" },
+    { id: "background", type: "句型搭配", show: "educational ______ / 填入：celebration", ans: false, feedback: "應填入 background。" },
+
+    // 260. guided (辨析: False / 句型: True)
+    { id: "guided", type: "單字辨析", word: "a <u><b>guided</b></u> tour", show: "替代的", ans: false, feedback: "guided 是形容詞「有導覽(員)的」。" },
+    { id: "guided", type: "句型搭配", show: "a ______ tour / 填入：guided", ans: true, feedback: "應填入 guided。" },
+
+    // 261. advanced (辨析: True / 句型: False)
+    { id: "advanced", type: "單字辨析", word: "<u><b>advanced</b></u> computer skills", show: "先進的;高等的、進階的", ans: true, feedback: "advanced 是形容詞「先進的;高等的、進階的」。" },
+    { id: "advanced", type: "句型搭配", show: "______ computer skills / 填入：initial", ans: false, feedback: "應填入 advanced。" },
+
+    // 262. alternative (辨析: False / 句型: True)
+    { id: "alternative", type: "單字辨析", word: "an <u><b>alternative</b></u> solution", show: "先進的;高等的", ans: false, feedback: "alternative 是形容詞「替代的」。" },
+    { id: "alternative", type: "句型搭配", show: "an ______ solution / 填入：alternative", ans: true, feedback: "應填入 alternative。" },
+
+    // 263. confident (辨析: True / 句型: False)
+    { id: "confident", type: "單字辨析", word: "feel <u><b>confident</b></u> about the result", show: "有自信的", ans: true, feedback: "confident 是形容詞「有自信的」。" },
+    { id: "confident", type: "句型搭配", show: "feel ______ about the result / 填入：various", ans: false, feedback: "應填入 confident。" },
+
+    // 264. decade (辨析: False / 句型: True)
+    { id: "decade", type: "單字辨析", word: "over the past three <u><b>decades</b></u>", show: "慶祝", ans: false, feedback: "decade 是名詞「十年」。" },
+    { id: "decade", type: "句型搭配", show: "over the past three ______ / 填入：decades", ans: true, feedback: "應填入 decades。" },
+
+    // 265. initial (辨析: True / 句型: False)
+    { id: "initial", type: "單字辨析", word: "the <u><b>initial</b></u> stage of the project", show: "開始的，最初的", ans: true, feedback: "initial 是形容詞「開始的，最初的」。" },
+    { id: "initial", type: "句型搭配", show: "the ______ stage of the project / 填入：separate", ans: false, feedback: "應填入 initial。" },
+
+    // 266. separate (辨析: False / 句型: True)
+    { id: "separate", type: "單字辨析", word: "The order will arrive in two <u><b>separate</b></u> shipments.", show: "經歷、背景", ans: false, feedback: "separate 是形容詞「分開的、個別的」。" },
+    { id: "separate", type: "句型搭配", show: "The order will arrive in two ______ shipments. / 填入：separate", ans: true, feedback: "應填入 separate。" },
+
+    // 267. celebration (辨析: True / 句型: False)
+    { id: "celebration", type: "單字辨析", word: "the grand opening <u><b>celebration</b></u>", show: "慶祝", ans: true, feedback: "celebration 是名詞「慶祝」。" },
+    { id: "celebration", type: "句型搭配", show: "the grand opening ______ / 填入：concern", ans: false, feedback: "應填入 celebration。" },
+
+    // 268. concern (辨析: False / 句型: True)
+    { id: "concern", type: "單字辨析", word: "express <u><b>concern</b></u>", show: "景觀設計、環境美化", ans: false, feedback: "concern 是名詞「關心、關切」。" },
+    { id: "concern", type: "句型搭配", show: "express ______ / 填入：concern", ans: true, feedback: "應填入 concern。" },
+
+    // 269. environment (辨析: True / 句型: False)
+    { id: "environment", type: "單字辨析", word: "a friendly work <u><b>environment</b></u>", show: "環境", ans: true, feedback: "environment 是名詞「環境」。" },
+    { id: "environment", type: "句型搭配", show: "a friendly work ______ / 填入: landscaping", ans: false, feedback: "應填入 environment。" },
+
+    // 270. operate (辨析: False / 句型: True)
+    { id: "operate", type: "單字辨析", word: "<u><b>operate</b></u> a machine safely", show: "維護;主張", ans: false, feedback: "operate 是動詞「操作;營運;運作」。" },
+    { id: "operate", type: "句型搭配", show: "______ a machine safely / 填入：operate", ans: true, feedback: "應填入 operate。" },
+
+    // 271. various (辨析: True / 句型: False)
+    { id: "various", type: "單字辨析", word: "<u><b>various</b></u> styles and patterns", show: "各式各樣的", ans: true, feedback: "various 是形容詞「各式各樣的」。" },
+    { id: "various", type: "句型搭配", show: "______ styles and patterns / 填入：full-time", ans: false, feedback: "應填入 various。" },
+
+    // 272. brief (辨析: False / 句型: True)
+    { id: "brief", type: "單字辨析", word: "a <u><b>brief</b></u> meeting", show: "整體的", ans: false, feedback: "brief 是形容詞「簡略的，簡短的」。" },
+    { id: "brief", type: "句型搭配", show: "a ______ meeting / 填入：brief", ans: true, feedback: "應填入 brief。" },
+
+    // 273. full-time (辨析: True / 句型: False)
+    { id: "full-time", type: "單字辨析", word: "<u><b>full-time</b></u> job opportunity", show: "全職的", ans: true, feedback: "full-time 是形容詞「全職的」。" },
+    { id: "full-time", type: "句型搭配", show: "______ job opportunity / 填入：brief", ans: false, feedback: "應填入 full-time。" },
+
+    // 274. overall (辨析: False / 句型: True)
+    { id: "overall", type: "單字辨析", word: "the <u><b>overall</b></u> budget", show: "熟悉的;親近的", ans: false, feedback: "overall 是形容詞「整體的」。" },
+    { id: "overall", type: "句型搭配", show: "the ______ budget / 填入：overall", ans: true, feedback: "應填入 overall。" },
+
+    // 275. achieve (辨析: True / 句型: False)
+    { id: "achieve", type: "單字辨析", word: "<u><b>achieve</b></u> a sales target", show: "達成", ans: true, feedback: "achieve 是動詞「達成」。" },
+    { id: "achieve", type: "句型搭配", show: "______ a sales target / 填入：alternative", ans: false, feedback: "應填入 achieve。" }
 ];
 
 let questions = [];
@@ -199,9 +248,36 @@ let score = 0;
 let userHistoryList = []; 
 
 function initQuiz() {
-    const shuffled = [...rawData].sort(() => 0.5 - Math.random());
-    questions = shuffled.slice(0, 5);
-    currentIndex = 0; score = 0; userHistoryList = [];
+    const groups = {};
+    rawData.forEach(item => {
+        if (!groups[item.id]) groups[item.id] = [];
+        groups[item.id].push(item);
+    });
+
+    const wordIds = Object.keys(groups);
+    const shuffledIds = wordIds.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    // 強制分配題型：每次抽出的 5 題中兩種類型（辨析與搭配）各半，確保混合感
+    const typesToAssign = ["單字辨析", "單字辨析", "句型搭配", "句型搭配", Math.random() > 0.5 ? "單字辨析" : "句型搭配"];
+    typesToAssign.sort(() => 0.5 - Math.random());
+
+    let selectedQuestions = [];
+    shuffledIds.forEach((id, index) => {
+        const targetType = typesToAssign[index];
+        const questionOfTargetType = groups[id].find(q => q.type === targetType);
+        if (questionOfTargetType) {
+            selectedQuestions.push(questionOfTargetType);
+        } else {
+            const randomPick = groups[id][Math.floor(Math.random() * groups[id].length)];
+            selectedQuestions.push(randomPick);
+        }
+    });
+
+    questions = selectedQuestions.sort(() => 0.5 - Math.random());
+    
+    currentIndex = 0; 
+    score = 0; 
+    userHistoryList = [];
     document.getElementById('main-banner').classList.remove('compact');
     document.getElementById('intro-area').style.display = 'block';
     document.getElementById('quiz-section').style.display = 'block';
@@ -217,13 +293,15 @@ function loadQuestion() {
     document.getElementById('type-tag').innerText = q.type;
     const wordEl = document.getElementById('word');
     
+    // 每次載入新題目時徹底初始化內部元素，解決交叉污染與殘留問題
     if (q.type === "句型搭配") {
-        wordEl.style.display = 'none';
-        document.getElementById('content').innerText = q.show;
+        wordEl.style.display = 'none'; 
+        wordEl.innerHTML = ''; 
+        document.getElementById('content').innerText = q.show; 
     } else {
         wordEl.style.display = 'block';
         wordEl.innerHTML = q.word; 
-        document.getElementById('content').innerText = `中文意思：${q.show}`;
+        document.getElementById('content').innerText = `核心單字中文意思：${q.show}`;
     }
     
     document.getElementById('feedback').style.display = 'none';
@@ -237,7 +315,13 @@ function handleAnswer(userAns) {
     document.querySelectorAll('.btn-group button').forEach(b => b.disabled = true);
     feedback.style.display = 'block';
     const isCorrect = (userAns === q.ans);
-    userHistoryList.push({ word: q.word, isCorrect: isCorrect, feedback: q.feedback });
+    
+    userHistoryList.push({ 
+        word: q.type === "句型搭配" ? "句型搭配" : q.word, 
+        isCorrect: isCorrect, 
+        feedback: q.feedback 
+    });
+    
     if (isCorrect) {
         score += 20;
         feedback.innerText = "✅ " + q.feedback;
@@ -265,11 +349,11 @@ function showResult() {
     const now = new Date();
     const timeStr = `${now.getMonth() + 1}/${now.getDate()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-    // 使用獨立的 EP11 儲存欄位
-    let history = JSON.parse(localStorage.getItem('toeic_history_ep11')) || [];
+    // 使用關卡專屬快取緩存 Key 值 (EP11 版)
+    let history = JSON.parse(localStorage.getItem('toeic_history_ep11_v1')) || [];
     history.unshift({ score: score, time: timeStr });
     if(history.length > 5) history.pop();
-    localStorage.setItem('toeic_history_ep11', JSON.stringify(history));
+    localStorage.setItem('toeic_history_ep11_v1', JSON.stringify(history));
     renderHistoryList(history);
 
     document.getElementById('review-list').innerHTML = userHistoryList.map(item => `
@@ -296,7 +380,7 @@ function renderHistoryList(history) {
 
 function confirmClear() {
     if (confirm("確定要清除所有練習紀錄嗎？")) {
-        localStorage.removeItem('toeic_history_ep11');
+        localStorage.removeItem('toeic_history_ep11_v1');
         renderHistoryList([]);
     }
 }
